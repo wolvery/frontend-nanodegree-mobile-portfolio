@@ -33,11 +33,25 @@ form {
   position: fixed;
   width: 256px;
   z-index: -1;
+  will-change: transform;
 }
 
 .randomPizzaContainer {
   float: left;
   display: flex;
+  will-change: transform;
+}
+
+.randomPizzaContainer.small {
+  transform: scale(0.25, 1);
+}
+
+.randomPizzaContainer.medium {
+  transform: scale(0.3333, 1);
+}
+
+.randomPizzaContainer.large {
+  transform: scale(0.5, 1);
 }
 
 .randomPizzaContainer:after {

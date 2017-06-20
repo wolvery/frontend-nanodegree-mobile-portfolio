@@ -1,8 +1,10 @@
 ## Website Performance Optimization portfolio project
 
-Your challenge, if you wish to accept it (and we sure hope you will), is to optimize this online portfolio for speed! In particular, optimize the critical rendering path and make this page render as quickly as possible by applying the techniques you've picked up in the [Critical Rendering Path course](https://www.udacity.com/course/ud884).
+I have been chalenged by the Udacity's Website Performance Optimization portfolio project.
 
-To get started, check out the repository and inspect the code.
+This is the solution for the sequential goal:
+
+* Your challenge, if you wish to accept it (and we sure hope you will), is to optimize this online portfolio for speed! In particular, optimize the critical rendering path and make this page render as quickly as possible by applying the techniques you've picked up in the [Critical Rendering Path course](https://www.udacity.com/course/ud884).
 
 ### Getting started
 
@@ -32,7 +34,7 @@ Profile, optimize, measure... and then lather, rinse, and repeat. Good luck!
 
 #### Part 2: Optimize Frames per Second in pizza.html
 
-To optimize views/pizza.html, you will need to modify views/js/main.js until your frames per second rate is 60 fps or higher. You will find instructive comments in main.js. 
+To optimize views/pizza.html, you will need to modify views/js/main.js until your frames per second rate is 60 fps or higher. You will find instructive comments in main.js.
 
 You might find the FPS Counter/HUD Display useful in Chrome developer tools described here: [Chrome Dev Tools tips-and-tricks](https://developer.chrome.com/devtools/docs/tips-and-tricks).
 
@@ -53,3 +55,25 @@ The portfolio was built on Twitter's <a href="http://getbootstrap.com/">Bootstra
 
 * <a href="http://getbootstrap.com/css/">Bootstrap's CSS Classes</a>
 * <a href="http://getbootstrap.com/components/">Bootstrap's Components</a>
+
+
+### Solution
+
+#### Part 1
+ The following steps were performed to improve the Website's perfomance:
+1. Reduce the size of images and resized for each one just when it was necessary.
+2. Change of the profile picture and name in the page.
+3. Some informations have been filled in on the header.
+4. Included media attribute to print stylesheet on html page.
+5. Included media attribute to smartphone stylesheet on html page.
+6. Minified version of css documents.
+7. Verification if there is css without use to each html page.
+8. Add async javascript attribute to html page.
+9. Include inline css to html page.
+10. Minified version of html pages.
+
+#### Part 2
+ With the use of developer tools in Google Chrome it was easy to detect the bottlenecks in the Javascript file:
+ 1. The problem with the scrolling happened mainly because of Forced reflow. To solve this problem, we need to remove the code's line which extracts the data from inside the loop.
+ 2. Another problem was the resize of pizzas and it was caused by the last issue as well.
+ 3. While performin the resize of each pizza in a loop, it was loading all elements to locate just one element by its index. To avoid this problem, it was modified to a forEach.
