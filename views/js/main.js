@@ -471,7 +471,7 @@ var resizePizzas = function(size) {
     // Iterates through pizza elements on the page and changes their widths
     function changePizzaSizes(size) {
         //allocate the proper value to our global variable
-        if (possibleSizes[size] == undefined) {
+        if (possibleSizes[size] === undefined) {
             //get the data from the first pizza. hmm
             var dx = determineDx(document.getElementsByClassName("randomPizzaContainer")[0], size);
             possibleSizes[size] = (document.getElementsByClassName("randomPizzaContainer")[0].offsetWidth + dx) + 'px';
@@ -530,8 +530,8 @@ function updatePositions() {
     window.performance.mark("mark_start_frame");
 
     var totalY = document.body.scrollTop;
-    for (var i = 0; i < 5; i++) {
-        phase[i] = Math.sin(totalY / 1250 + i);
+    for (var index = 0; index < 5; index++) {
+        phase[index] = Math.sin(totalY / 1250 + index);
     }
 
     //it is only necessary get this data one time
