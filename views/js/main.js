@@ -305,7 +305,8 @@ function getNoun(y) {
 
 var adjectives = ["dark", "color", "whimsical", "shiny", "noisy", "apocalyptic", "insulting", "praise", "scientific"]; // types of adjectives for pizza titles
 var nouns = ["animals", "everyday", "fantasy", "gross", "horror", "jewelry", "places", "scifi"]; // types of nouns for pizza titles
-
+var possibleSizes = [];
+var phase = [];
 // Generates random numbers for getAdj and getNoun functions and returns a new pizza name
 function generator(adj, noun) {
     var adjectives = getAdj(adj);
@@ -469,12 +470,15 @@ var resizePizzas = function(size) {
 
     // Iterates through pizza elements on the page and changes their widths
     function changePizzaSizes(size) {
-        //get the data from the first pizza. hmm
-        var dx = determineDx(document.querySelectorAll(".randomPizzaContainer")[0], size);
-        var newwidth = (document.querySelectorAll(".randomPizzaContainer")[0].offsetWidth + dx) + 'px';
+        //allocate the proper value to our global variable
+        if (possibleSizes[size] == undefined) {
+            //get the data from the first pizza. hmm
+            var dx = determineDx(document.getElementsByClassName("randomPizzaContainer")[0], size);
+            possibleSizes[size] = (document.getElementsByClassName("randomPizzaContainer")[0].offsetWidth + dx) + 'px';
+        }
         //loop through the pizzas and change their sizes.
-        document.querySelectorAll(".randomPizzaContainer").forEach(function(item){
-          item.style.width = newwidth;
+        document.querySelectorAll(".randomPizzaContainer").forEach(function(item) {
+            item.style.width = possibleSizes[size];
         });
 
     }
@@ -486,14 +490,14 @@ var resizePizzas = function(size) {
     window.performance.measure("measure_pizza_resize", "mark_start_resize", "mark_end_resize");
     var timeToResize = window.performance.getEntriesByName("measure_pizza_resize");
     console.log("Time to resize pizzas: " + timeToResize[timeToResize.length -
-    1].duration + "ms");
+        1].duration + "ms");
 };
 
 window.performance.mark("mark_start_generating"); // collect timing data
 
+var pizzasDiv = document.getElementById("randomPizzas");
 // This for-loop actually creates and appends all of the pizzas when the page loads
 for (var i = 2; i < 100; i++) {
-    var pizzasDiv = document.getElementById("randomPizzas");
     pizzasDiv.appendChild(pizzaElementGenerator(i));
 }
 
@@ -524,12 +528,16 @@ function logAverageFrame(times) { // times is the array of User Timing measureme
 function updatePositions() {
     frame++;
     window.performance.mark("mark_start_frame");
-    //it is only necessary get this data one time
+
     var totalY = document.body.scrollTop;
-    var items = document.querySelectorAll('.mover');
+    for (var i = 0; i < 5; i++) {
+        phase[i] = Math.sin(totalY / 1250 + i);
+    }
+
+    //it is only necessary get this data one time
+    var items = document.getElementsByClassName('mover');
     for (var i = 0; i < items.length; i++) {
-        var phase = Math.sin((totalY / 1250) + (i % 5));
-        items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
+        items[i].style.left = items[i].basicLeft + phase[i % 5] * 100 + 'px';
     }
 
     // User Timing API to the rescue again. Seriously, it's worth learning.
@@ -549,7 +557,7 @@ window.addEventListener('scroll', updatePositions);
 document.addEventListener('DOMContentLoaded', function() {
     var cols = 8;
     var s = 256;
-    for (var i = 0; i < 200; i++) {
+    for (var i = 0; i < innerHeight / 10; i++) {
         var elem = document.createElement('img');
         elem.className = 'mover';
         elem.src = "images/pizza.png";

@@ -77,3 +77,8 @@ The portfolio was built on Twitter's <a href="http://getbootstrap.com/">Bootstra
  1. The problem with the scrolling happened mainly because of Forced reflow. To solve this problem, we need to remove the code's line which extracts the data from inside the loop.
  2. Another problem was the resize of pizzas and it was caused by the last issue as well.
  3. While performin the resize of each pizza in a loop, it was loading all elements to locate just one element by its index. To avoid this problem, it was modified to a forEach.
+
+
+### How to Use
+To check the work just go to:
+https://wolvery.github.io/frontend-nanodegree-mobile-portfolio/
