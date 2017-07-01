@@ -536,7 +536,7 @@ function updatePositions() {
 
     //it is only necessary get this data one time
     var items = document.getElementsByClassName('mover');
-    for (var i = 0; i < items.length; i++) {
+    for (var i = 0, maxSize = items.length; i < maxSize; i++) {
         items[i].style.left = items[i].basicLeft + phase[i % 5] * 100 + 'px';
     }
 
@@ -557,15 +557,16 @@ window.addEventListener('scroll', updatePositions);
 document.addEventListener('DOMContentLoaded', function() {
     var cols = 8;
     var s = 256;
-    for (var i = 0; i < innerHeight / 10; i++) {
-        var elem = document.createElement('img');
+    var movingPizzas = document.getElementById("movingPizzas1");
+    for (var i = 0, maxElements = (innerHeight / s) * 8,elem; i < maxElements ; i++) {
+        elem = document.createElement('img');
         elem.className = 'mover';
         elem.src = "images/pizza.png";
         elem.style.height = "100px";
         elem.style.width = "73.333px";
         elem.basicLeft = (i % cols) * s;
         elem.style.top = (Math.floor(i / cols) * s) + 'px';
-        document.querySelector("#movingPizzas1").appendChild(elem);
+        movingPizzas.appendChild(elem);
     }
     updatePositions();
 });
